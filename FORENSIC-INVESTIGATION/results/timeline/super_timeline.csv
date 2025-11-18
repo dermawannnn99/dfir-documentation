@@ -1,0 +1,42 @@
+timestamp,source,type,user,hostname,description,filename,inode,notes
+2025-11-10T14:23:10+07:00,REGISTRY,USB Device Connected,N/A,FINANCE-WKS-07,SanDisk Ultra 32GB connected,USBSTOR,N/A,Device S/N: 4C530001234567
+2025-11-12T02:13:47+07:00,EVTX:Security,Logon Success (Type 3),siti.rahma,FINANCE-WKS-07,Network logon from 203.78.121.45,Event ID 4624,N/A,⚠️ EARLIEST POINT OF COMPROMISE
+2025-11-12T02:13:48+07:00,EVTX:Security,Privilege Assignment,siti.rahma,FINANCE-WKS-07,Special privileges assigned,Event ID 4672,N/A,SeDebugPrivilege granted
+2025-11-12T02:14:22+07:00,NTFS:MFT,Directory Access,siti.rahma,FINANCE-WKS-07,READ access to Finance_Data folder,C:\Users\siti.rahma\Documents\Finance_Data\,12345,Reconnaissance activity
+2025-11-12T02:15:22+07:00,NTFS:MFT,File Created,siti.rahma,FINANCE-WKS-07,SecurityUpdate.exe created in Temp,C:\Users\siti.rahma\AppData\Local\Temp\SecurityUpdate.exe,23456,Malware dropper - 5.2 MB
+2025-11-12T02:15:23+07:00,NTFS:USN,File Written,siti.rahma,FINANCE-WKS-07,SecurityUpdate.exe write complete,C:\Users\siti.rahma\AppData\Local\Temp\SecurityUpdate.exe,23456,Download completed
+2025-11-12T02:16:45+07:00,PREFETCH,Program Execution,siti.rahma,FINANCE-WKS-07,SecurityUpdate.exe executed (first run),SECURITYUPDATE.EXE-A3B2C1D4.pf,N/A,Run count: 1
+2025-11-12T02:16:45+07:00,EVTX:Security,Process Created,siti.rahma,FINANCE-WKS-07,SecurityUpdate.exe process started,Event ID 4688,N/A,PID: 4532 | Parent: explorer.exe
+2025-11-12T02:17:10+07:00,NTFS:MFT,Directory Created,siti.rahma,FINANCE-WKS-07,WindowsSecurity directory created,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\,34567,Malware working directory
+2025-11-12T02:17:22+07:00,EVTX:Application,Application Error,siti.rahma,FINANCE-WKS-07,SecurityUpdate.exe error,Event ID 1000,N/A,Decoy error (MSVCR120.dll missing)
+2025-11-12T02:18:10+07:00,REGISTRY:NTUSER,Registry Modified,siti.rahma,FINANCE-WKS-07,Run key created for persistence,HKCU\Software\Microsoft\Windows\CurrentVersion\Run,N/A,⚠️ PERSISTENCE ESTABLISHED
+2025-11-12T02:18:45+07:00,NTFS:MFT,File Created,siti.rahma,FINANCE-WKS-07,Keylogger output file created,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\keylog.txt,45678,Initial size: 0 bytes
+2025-11-12T02:19:33+07:00,NTFS:MFT,File Created,SYSTEM,FINANCE-WKS-07,Dropper copied to ProgramData,C:\ProgramData\Microsoft\Windows\SystemData\svchost_alt.exe,56789,Secondary payload - 3.1 MB
+2025-11-12T02:22:33+07:00,EVTX:System,Service Installed,SYSTEM,FINANCE-WKS-07,WindowsSecurityService installed,Event ID 7045,N/A,⚠️ MALICIOUS SERVICE
+2025-11-12T02:22:33+07:00,REGISTRY:SYSTEM,Registry Created,SYSTEM,FINANCE-WKS-07,Service registry key created,HKLM\SYSTEM\CurrentControlSet\Services\WindowsSecurityService,N/A,Start Type: Automatic
+2025-11-12T02:22:45+07:00,EVTX:System,Service Started,SYSTEM,FINANCE-WKS-07,WindowsSecurityService started,Event ID 7036,N/A,Service running as SYSTEM
+2025-11-12T02:22:45+07:00,PREFETCH,Program Execution,SYSTEM,FINANCE-WKS-07,svchost_alt.exe executed,SVCHOST_ALT.EXE-5D6E7F8A.pf,N/A,Run count: 1
+2025-11-12T02:25:10+07:00,EVTX:Security,Network Connection,SYSTEM,FINANCE-WKS-07,Outbound connection to 185.220.101.47:443,Event ID 5156,N/A,⚠️ C2 CONNECTION ESTABLISHED
+2025-11-12T02:27:15+07:00,NTFS:MFT,Mass File Access,siti.rahma,FINANCE-WKS-07,35 Excel files accessed,C:\Users\siti.rahma\Documents\Finance_Data\*.xlsx,Multiple,Data collection phase
+2025-11-12T02:30:22+07:00,NTFS:MFT,File Created,SYSTEM,FINANCE-WKS-07,Configuration file created,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\config.dat,67890,Initial: 0 bytes
+2025-11-12T02:32:10+07:00,EVTX:Security,Object Access,siti.rahma,FINANCE-WKS-07,Password file accessed,Event ID 4663,N/A,File: Passwords.txt
+2025-11-12T02:35:45+07:00,NTFS:MFT,File Modified,SYSTEM,FINANCE-WKS-07,Keylog updated,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\keylog.txt,45678,Size: 12.5 KB
+2025-11-12T03:15:23+07:00,NTFS:MFT,File Modified,SYSTEM,FINANCE-WKS-07,Keylog updated,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\keylog.txt,45678,Size: 45.1 KB (browser passwords)
+2025-11-12T04:22:10+07:00,NTFS:MFT,File Access,SYSTEM,FINANCE-WKS-07,Database backup accessed,C:\ProgramData\Company\Database_Backup\finance_q3_2025.sql,78901,Size: 128 MB
+2025-11-12T04:45:33+07:00,NTFS:MFT,File Modified,SYSTEM,FINANCE-WKS-07,Config file updated,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\config.dat,67890,Size: 128 MB (compressed data)
+2025-11-12T05:10:22+07:00,EVTX:Security,Network Traffic,SYSTEM,FINANCE-WKS-07,64 MB sent to 185.220.101.47,Event ID 5156,N/A,⚠️ DATA EXFILTRATION
+2025-11-12T05:45:18+07:00,EVTX:Security,Network Traffic,SYSTEM,FINANCE-WKS-07,128 MB sent to 185.220.101.47,Event ID 5156,N/A,Exfiltration continues
+2025-11-12T06:20:42+07:00,EVTX:Security,Network Traffic,SYSTEM,FINANCE-WKS-07,192 MB sent to 185.220.101.47,Event ID 5156,N/A,Exfiltration continues
+2025-11-12T06:45:12+07:00,NTFS:MFT,File Created,SYSTEM,FINANCE-WKS-07,Encrypted file created,C:\Users\siti.rahma\Documents\Finance_Data\Q3_Report.xlsx.enc,89012,⚠️ RANSOMWARE ACTIVITY
+2025-11-12T06:47:33+07:00,PREFETCH,Program Execution,siti.rahma,FINANCE-WKS-07,PowerShell executed,POWERSHELL.EXE-C4D5E6F7.pf,N/A,Run count: 23 (cleanup script)
+2025-11-12T06:48:12+07:00,PREFETCH,Program Execution,siti.rahma,FINANCE-WKS-07,CMD executed,CMD.EXE-B3C4D5E6.pf,N/A,Run count: 47 (batch cleanup)
+2025-11-12T06:48:45+07:00,NTFS:USN,File Deleted,siti.rahma,FINANCE-WKS-07,Malware deleted,C:\Users\siti.rahma\AppData\Local\Temp\SecurityUpdate.exe,23456,Anti-forensic attempt
+2025-11-12T06:49:05+07:00,EVTX:Security,Log Cleared,siti.rahma,FINANCE-WKS-07,Security log partially cleared,Event ID 1102,N/A,⚠️ ANTI-FORENSIC ACTIVITY
+2025-11-12T06:49:22+07:00,NTFS:MFT,File Modified,SYSTEM,FINANCE-WKS-07,Final keylog update,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\keylog.txt,45678,Final size: 89 KB
+2025-11-12T06:49:47+07:00,NTFS:USN,Mass Deletion,siti.rahma,FINANCE-WKS-07,23 temp files deleted,$Recycle.Bin,Multiple,Cleanup phase
+2025-11-12T06:50:05+07:00,NTFS:MFT,File Modified,SYSTEM,FINANCE-WKS-07,Config compressed,C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\config.dat,67890,Final size: 342 KB
+2025-11-12T06:50:18+07:00,EVTX:Security,Connection Closed,SYSTEM,FINANCE-WKS-07,C2 connection terminated,Event ID 5156,N/A,Total sent: 247 MB | Duration: 4h 25m
+2025-11-12T06:50:18+07:00,EVTX:Security,Logoff,siti.rahma,FINANCE-WKS-07,Network logoff,Event ID 4634,N/A,⚠️ ATTACKER DISCONNECT
+2025-11-12T06:51:02+07:00,EVTX:System,System Boot,N/A,FINANCE-WKS-07,Event log service started,Event ID 6005,N/A,System reboot (cover tracks)
+2025-11-12T06:51:45+07:00,EVTX:Security,Logon Success,siti.rahma,FINANCE-WKS-07,Local console logon,Event ID 4624,N/A,Real user logs in normally
+2025-11-12T09:30:00+07:00,MANUAL,Incident Detected,joko.susilo,FINANCE-WKS-07,IT Admin discovers anomalies,N/A,N/A,Case opened: FOR-2025-WKS-001

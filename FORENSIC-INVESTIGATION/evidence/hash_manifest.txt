@@ -1,0 +1,210 @@
+==============================================================================
+EVIDENCE HASH MANIFEST
+==============================================================================
+Case Number: FOR-2025-WKS-001
+Case Name: Windows Workstation Breach Investigation
+Evidence ID: EVIDENCE-001
+Acquisition Date: 2025-11-12 10:47:00 WIB
+Acquired By: Dwiyandra Raysha (First Responder)
+Write-Blocker Used: Tableau T8-R2 Forensic Bridge (S/N: T8R2-12345)
+Imaging Software: FTK Imager 4.7.1.2
+==============================================================================
+
+DISK IMAGE - FINANCE-WKS-07.E01
+------------------------------------------------------------------------------
+Description: Dell OptiPlex 7090 - 256GB NVMe SSD
+Serial Number: CN-0ABCD1-12345-678-9ABC
+File Size: 255,433,756,672 bytes (238 GB)
+Image Format: EnCase Evidence File (E01)
+Compression: Fast Compression
+Segments: 1
+
+HASH VALUES:
+  MD5:    a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6
+  SHA-1:  7f8e9d0c1b2a3f4e5d6c7b8a9d0e1f2a3b4c5d6e
+  SHA-256: 7a3b9c2f1e8d4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0
+
+VERIFICATION LOG:
+  [2025-11-12 11:30] Initial acquisition  : SHA-256 MATCH ✅
+  [2025-11-15 09:00] Pre-analysis check   : SHA-256 MATCH ✅
+  [2025-11-18 14:00] Post-analysis check  : SHA-256 MATCH ✅
+
+==============================================================================
+
+RAM DUMP - FINANCE-WKS-07.mem
+------------------------------------------------------------------------------
+Description: Physical Memory Dump (RAM)
+Size: 17,179,869,184 bytes (16 GB)
+Acquisition Time: 2025-11-12 10:25:00 WIB
+Method: FTK Imager Memory Capture
+
+HASH VALUES:
+  MD5:    b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9
+  SHA-1:  8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b
+  SHA-256: a3f7c2e1d4b5a6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1
+
+VERIFICATION LOG:
+  [2025-11-12 10:30] Post-acquisition     : SHA-256 MATCH ✅
+
+==============================================================================
+
+REGISTRY HIVES
+------------------------------------------------------------------------------
+
+SAM Registry Hive:
+  File: SAM.hive
+  Size: 262,144 bytes (256 KB)
+  MD5: 1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e
+  SHA-256: 1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2
+
+SYSTEM Registry Hive:
+  File: SYSTEM.hive
+  Size: 50,331,648 bytes (48 MB)
+  MD5: 2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f
+  SHA-256: 2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3
+
+SOFTWARE Registry Hive:
+  File: SOFTWARE.hive
+  Size: 134,217,728 bytes (128 MB)
+  MD5: 3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a
+  SHA-256: 3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4
+
+NTUSER.DAT:
+  File: NTUSER.DAT
+  Size: 15,728,640 bytes (15 MB)
+  MD5: 4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b
+  SHA-256: 4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5
+
+==============================================================================
+
+EVENT LOGS
+------------------------------------------------------------------------------
+
+Security.evtx:
+  Size: 327,155,712 bytes (312 MB)
+  Events: 48,234
+  MD5: 5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c
+  SHA-256: 5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6
+
+System.evtx:
+  Size: 163,577,856 bytes (156 MB)
+  Events: 23,891
+  MD5: 6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d
+  SHA-256: 6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7
+
+Application.evtx:
+  Size: 93,323,264 bytes (89 MB)
+  Events: 15,672
+  MD5: 7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e
+  SHA-256: 7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5
+  b6c7d8e9f0a1b2c3d4e5f6a7b8
+
+==============================================================================
+
+MALWARE SAMPLES
+------------------------------------------------------------------------------
+
+SecurityUpdate.exe (AsyncRAT Variant):
+  Path: C:\Users\siti.rahma\AppData\Local\Temp\SecurityUpdate.exe
+  Size: 5,242,880 bytes (5.2 MB)
+  File Type: PE32 executable (GUI) Intel 80386, for MS Windows
+  Compile Time: 2025-11-10 18:45:32 UTC
+  
+  HASH VALUES:
+    MD5: a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6
+    SHA-1: 7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b
+    SHA-256: 7a3b9c2f1e8d4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0
+  
+  VIRUS TOTAL ANALYSIS:
+    Detection Ratio: 48/71
+    First Submission: 2025-11-12 03:22:15 UTC
+    Classification: Trojan.AsyncRAT
+    
+  YARA RULE MATCH: AsyncRAT_SecurityUpdate_Variant ✅
+
+svchost_alt.exe (AsyncRAT Dropper):
+  Path: C:\ProgramData\Microsoft\Windows\SystemData\svchost_alt.exe
+  Size: 3,145,728 bytes (3.1 MB)
+  File Type: PE32 executable (console) Intel 80386, for MS Windows
+  Compile Time: 2025-11-10 19:12:08 UTC
+  
+  HASH VALUES:
+    MD5: b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9
+    SHA-1: 8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c
+    SHA-256: 8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c
+  
+  VIRUS TOTAL ANALYSIS:
+    Detection Ratio: 52/71
+    First Submission: 2025-11-12 03:45:33 UTC
+    Classification: Trojan.Dropper
+    
+  YARA RULE MATCH: AsyncRAT_Dropper_Variant ✅
+
+keylog.txt (Keylogger Output):
+  Path: C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\keylog.txt
+  Size: 89,453 bytes (89 KB)
+  File Type: UTF-8 Unicode text
+  
+  HASH VALUES:
+    MD5: c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0
+    SHA-256: c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6
+  
+  CONTENT SUMMARY:
+    - Keystroke logs (4h 31m of activity)
+    - Browser passwords (Gmail, Bank accounts)
+    - Clipboard data
+    - Sensitive: YES ⚠️
+
+config.dat (Compressed Stolen Data):
+  Path: C:\Users\siti.rahma\AppData\Roaming\WindowsSecurity\config.dat
+  Size: 342,134 bytes (342 KB)
+  File Type: Compressed data (gzip)
+  
+  HASH VALUES:
+    MD5: d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1
+    SHA-256: d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7
+  
+  DECOMPRESSED SIZE: ~128 MB (estimated)
+  CONTENT: Aggregated stolen files before exfiltration
+
+==============================================================================
+
+VERIFICATION SUMMARY
+------------------------------------------------------------------------------
+
+Total Files Hashed: 13
+Hash Algorithm Used: MD5, SHA-1, SHA-256
+Verification Method: Triple-redundancy
+
+INTEGRITY STATUS:
+  ✅ All hashes verified across multiple timestamps
+  ✅ No discrepancies detected
+  ✅ Write-blocker validation successful
+  ✅ Chain of custody maintained
+
+FORENSIC SOUNDNESS: CONFIRMED ✅
+
+==============================================================================
+
+ANALYST CERTIFICATION
+------------------------------------------------------------------------------
+
+I, Dwiyandra Raysha, certify that:
+
+1. All evidence was acquired using forensically sound methods
+2. Write-blocking was employed throughout acquisition process
+3. All hash values were independently verified
+4. Chain of custody has been maintained without break
+5. No modifications were made to original evidence
+6. All procedures followed industry best practices (NIST SP 800-86)
+
+Analyst Signature: _______________________
+Date: 2025-11-12
+Witness: Muhammad Rizky Dermawan (Lead Analyst)
+Witness Signature: _______________________
+
+==============================================================================
+END OF HASH MANIFEST
+Generated: 2025-11-12 12:00:00 WIB
+Document Version: 1.0
+==============================================================================

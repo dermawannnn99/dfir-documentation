@@ -1,0 +1,149 @@
+=============================================================
+SIGMA RULE DETECTION RESULTS
+Case: FOR-2025-WKS-001
+Analysis Date: 2025-11-16 14:00:00 WIB
+=============================================================
+
+ALERT #1: Suspicious Service Installation
+--------------------------------------------------------------
+Rule: suspicious_service_install.yml
+Severity: HIGH
+Status: CONFIRMED ✅
+
+Event Details:
+  Event ID: 7045
+  Timestamp: 2025-11-12 02:22:33
+  Service Name: WindowsSecurityService
+  Display Name: Windows Security Update Service
+  Image Path: C:\ProgramData\Microsoft\Windows\SystemData\svchost_alt.exe
+  Start Type: Automatic
+  Service Type: Win32OwnProcess
+
+Analysis:
+  ✅ Service name masquerades as legitimate Windows service
+  ✅ Image path in non-standard location (not System32)
+  ✅ Matches known AsyncRAT persistence technique
+  
+Recommendation: QUARANTINE & REMOVE
+
+
+ALERT #2: Off-Hours Login from Foreign IP
+--------------------------------------------------------------
+Rule: abnormal_login_hours_foreign_
+ip.yml
+Severity: HIGH
+Status: CONFIRMED ✅
+
+Event Details:
+  Event ID: 4624
+  Timestamp: 2025-11-12 02:13:47
+  User: SENTOSA\siti.rahma
+  Logon Type: 3 (Network)
+  Source IP: 203.78.121.45
+  Workstation: UNKNOWN-PC
+  
+Geolocation Analysis:
+  IP: 203.78.121.45
+  Country: Malaysia
+  City: Kuala Lumpur
+  ISP: TM Net (Telekom Malaysia)
+  
+Normal User Profile:
+  Expected Location: Jakarta, Indonesia
+  Expected IP Range: 192.168.10.x (Corporate LAN)
+  Normal Working Hours: 08:00 - 17:00 WIB
+  
+Analysis:
+  ✅ Login time: 02:13 AM (outside business hours)
+  ✅ IP location: Foreign country (not Indonesia)
+  ✅ User not on VPN approved list
+  ✅ Impossible travel: User last seen in office 8 hours prior
+  
+Recommendation: IMMEDIATE PASSWORD RESET & ACCOUNT REVIEW
+
+
+ALERT #3: Large Outbound Data Transfer
+--------------------------------------------------------------
+Rule: data_exfiltration_large_transfer.yml
+Severity: MEDIUM
+Status: CONFIRMED ✅
+
+Event Details:
+  Event ID: 5156
+  Start Time: 2025-11-12 02:25:10
+  End Time: 2025-11-12 06:50:18
+  Duration: 4 hours 25 minutes
+  Process: svchost_alt.exe
+  Destination IP: 185.220.101.47
+  Destination Port: 443 (HTTPS)
+  Protocol: TCP
+  
+Transfer Statistics:
+  Total Bytes Sent: 258,998,272 bytes (247 MB)
+  Average Speed: 16.3 KB/s
+  Connection Type: Persistent
+  
+Destination Analysis:
+  IP: 185.220.101.47
+  Country: Russia
+  City: Moscow
+  ASN: AS51167 (Hosting provider - known for abuse)
+  Reputation: BLACKLISTED (multiple threat intel sources)
+  
+Analysis:
+  ✅ Transfer size exceeds 100 MB threshold
+  ✅ Destination IP flagged as malicious
+  ✅ Correlation with malware execution (svchost_alt.exe)
+  ✅ Encrypted channel (port 443) for C2 communication
+  
+Recommendation: BLOCK IP AT FIREWALL & INVESTIGATE DATA LOSS
+
+
+ALERT #4: Security Log Clearing Attempt
+--------------------------------------------------------------
+Rule: anti_forensic_log_clearing.yml
+Severity: CRITICAL
+Status: CONFIRMED ✅
+
+Event Details:
+  Event ID: 1102
+  Timestamp: 2025-11-12 06:49:05
+  User: SENTOSA\siti.rahma
+  Process: wevtutil.exe
+  Command: wevtutil cl Security
+  
+Impact Assessment:
+  Events Before: 48,234
+  Events After: 46,987
+  Events Deleted: 1,247 (2.6% of total)
+  Time Range Affected: 04:30 - 06:30 WIB
+  
+Analysis:
+  ✅ Classic anti-forensic technique
+  ✅ Executed immediately before attacker disconnect
+  ✅ Partial success (many events still recoverable)
+  ✅ Correlation with end-of-attack cleanup phase
+  
+Recommendation: PRESERVE REMAINING LOGS & FULL INVESTIGATION
+
+=============================================================
+SUMMARY
+=============================================================
+Total Alerts Generated: 4
+High Severity: 3
+Medium Severity: 1
+False Positives: 0
+
+Confirmed Attack Chain:
+  1. Initial Access (02:13:47) → Alert #2
+  2. Execution (02:16:45) → Correlated with Alert #1
+  3. Persistence (02:22:33) → Alert #1
+  4. Exfiltration (02:25-06:50) → Alert #3
+  5. Anti-Forensics (06:49:05) → Alert #4
+
+Overall Assessment: CRITICAL INCIDENT - FULL COMPROMISE
+=============================================================
+
+Analyst: Ananda Fahrizal (Toolsmith)
+Reviewed By: Muhammad Rizky Dermawan (Lead Analyst)
+Date: 2025-11-16

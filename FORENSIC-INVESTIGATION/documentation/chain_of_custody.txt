@@ -1,0 +1,130 @@
+# CHAIN OF CUSTODY
+## Kasus: FOR-2025-WKS-001 - Windows Workstation Breach
+
+---
+
+### EVIDENCE INFORMATION
+
+| Field | Value |
+|-------|-------|
+| **Case Number** | FOR-2025-WKS-001 |
+| **Evidence ID** | EVIDENCE-001 |
+| **Description** | Dell OptiPlex 7090 Workstation |
+| **Hostname** | FINANCE-WKS-07 |
+| **Serial Number** | CN-0ABCD1-12345-678-9ABC |
+| **Owner** | Siti Rahma (Finance Manager) |
+| **Location Found** | Lantai 3, Ruang Finance, PT. Sentosa Teknologi |
+
+---
+
+### SEIZURE INFORMATION
+
+| Field | Value |
+|-------|-------|
+| **Date Seized** | 2025-11-12 |
+| **Time Seized** | 10:15 WIB |
+| **Seized By** | Ahmad Fauzi (First Responder) |
+| **Witness** | Joko Susilo (IT Administrator) |
+| **Condition** | Powered ON, Connected to network |
+| **Photos Taken** | Yes (12 photos) |
+
+---
+
+### CHAIN OF CUSTODY LOG
+
+| Date/Time | Released By | Received By | Purpose | Location | Condition | Signature |
+|-----------|-------------|-------------|---------|----------|-----------|-----------|
+| 2025-11-12 10:15 | Joko Susilo (IT Admin) | Ahmad Fauzi | Evidence seizure | Finance Office | Powered ON | [Signed] |
+| 2025-11-12 11:30 | Ahmad Fauzi | Rizki Maulana | Forensic analysis | Evidence Locker | Sealed bag | [Signed] |
+| 2025-11-15 09:00 | Rizki Maulana | Dina Permata | Data extraction | Forensic Lab | Sealed bag | [Signed] |
+| 2025-11-18 14:00 | Dina Permata | Budi Santoso | Report preparation | Forensic Lab | Sealed bag | [Signed] |
+
+---
+
+### INTEGRITY VERIFICATION
+
+**Hash Values (Disk Image):**
+```
+File: FINANCE-WKS-07.E01
+Size: 238 GB (255,433,756,672 bytes)
+
+MD5:    a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6
+SHA-1:  7f8e9d0c1b2a3f4e5d6c7b8a9d0e1f2a3b4c5d6e
+SHA-256: 7a3b9c2f1e8d4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0
+```
+
+**Verification Status:**
+- ✅ Initial hash (2025-11-12 11:30): VERIFIED
+- ✅ Pre-analysis hash (2025-11-15 09:00): MATCH
+- ✅ Post-analysis hash (2025-11-18 14:00): MATCH
+
+---
+
+### NOTES
+
+1. Evidence was isolated from network immediately upon seizure
+2. Write-blocker (Tableau T8-R2) used during acquisition
+3. Original device stored in evidence locker #7
+4. Image file stored on forensic workstation (air-gapped)
+5. All access logged and monitored
+
+---
+
+**Document Prepared By:** Ahmad Fauzi  
+**Date:** 2025-11-12  
+**Signature:** _______________________
+```
+
+---
+
+### **8. `results/yara_scan/yara_matches.txt`**
+```
+=============================================================
+YARA SCAN RESULTS
+Case: FOR-2025-WKS-001
+Scan Date: 2025-11-15 10:30:00 WIB
+Rules: asyncrat_variant.yar
+=============================================================
+
+MATCH: AsyncRAT_SecurityUpdate_Variant
+--------------------------------------------------------------
+File: C:\Users\siti.rahma\AppData\Local\Temp\SecurityUpdate.exe
+Size: 5,242,880 bytes
+MD5: a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6
+SHA256: 7a3b9c2f1e8d4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0
+
+Matched Strings:
+  - $str1 at offset 0x1234: "SecurityUpdate"
+  - $str2 at offset 0x2345: "WindowsSecurityService"
+  - $api3 at offset 0x3456: "GetAsyncKeyState"
+  - $api4 at offset 0x4567: "CreateServiceA"
+
+VirusTotal Detection: 48/71
+Classification: AsyncRAT variant
+
+
+MATCH: AsyncRAT_Dropper_Variant
+--------------------------------------------------------------
+File: C:\ProgramData\Microsoft\Windows\SystemData\svchost_alt.exe
+Size: 3,145,728 bytes
+MD5: b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9
+SHA256: 8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c
+
+Matched Strings:
+  - $str1 at offset 0x567: "svchost_alt"
+  - $str2 at offset 0x678: "WindowsSecurity"
+  - $api2 at offset 0x789: "VirtualAlloc"
+
+VirusTotal Detection: 52/71
+Classification: AsyncRAT dropper
+
+=============================================================
+SUMMARY
+=============================================================
+Total Files Scanned: 1,523
+Matches Found: 2
+False Positives: 0
+Scan Duration: 47 seconds
+
+Status: CRITICAL MALWARE DETECTED ⚠️
+=============================================================

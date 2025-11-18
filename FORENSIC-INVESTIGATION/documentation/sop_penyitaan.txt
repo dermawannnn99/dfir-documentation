@@ -1,0 +1,274 @@
+# STANDARD OPERATING PROCEDURE (SOP)
+## PENYITAAN BUKTI DIGITAL
+
+**Kode SOP:** FOR-SOP-001  
+**Versi:** 1.0  
+**Tanggal Berlaku:** 2025-11-01  
+**Disusun Oleh:** Tim Forensik Kelompok 6
+
+---
+
+## 1. TUJUAN
+
+SOP ini mengatur prosedur standar penyitaan perangkat digital untuk keperluan investigasi forensik, memastikan:
+- Integritas bukti terjaga
+- Chain of custody terdokumentasi
+- Admissibility di pengadilan
+
+---
+
+## 2. RUANG LINGKUP
+
+SOP ini berlaku untuk penyitaan:
+- Komputer desktop/laptop
+- Server
+- Storage devices (HDD, SSD, USB)
+- Mobile devices
+- Network devices
+
+---
+
+## 3. PERALATAN YANG DIPERLUKAN
+
+### A. Dokumentasi
+- [ ] Kamera digital
+- [ ] Formulir chain of custody
+- [ ] Label evidence
+- [ ] Evidence bags (tamper-evident)
+- [ ] Notebook untuk catatan lapangan
+
+### B. Tools Forensik
+- [ ] Write-blocker (hardware)
+- [ ] Forensic imaging software (FTK Imager)
+- [ ] Hash calculation tools
+- [ ] Portable storage (untuk RAM dump)
+
+### C. Keamanan
+- [ ] Sarung tangan forensik
+- [ ] Anti-static bags (untuk storage devices)
+- [ ] Faraday bags (untuk mobile devices)
+
+---
+
+## 4. PROSEDUR PENYITAAN
+
+### FASE 1: PERSIAPAN
+
+**4.1 Assessment Awal**
+- [ ] Identifikasi perangkat yang akan disita
+- [ ] Catat kondisi perangkat (ON/OFF)
+- [ ] Identifikasi peripheral terhubung
+- [ ] Dokumentasi lokasi TKP
+
+**4.2 Dokumentasi Fotografi**
+```
+FOTO WAJIB:
+1. Wide shot - kondisi ruangan keseluruhan
+2. Medium shot - workstation dan peripheral
+3. Close-up - layar monitor (jika menyala)
+4. Detail - koneksi kabel (belakang unit)
+5. Label - serial number dan asset tag
+6. Additional - USB devices, external drives
+```
+
+---
+
+### FASE 2: PERANGKAT MENYALA (POWERED ON)
+
+**4.3 Jika Sistem Hidup:**
+```
+PRIORITAS: Preservasi RAM dan data volatile
+
+LANGKAH:
+1. JANGAN SENTUH keyboard/mouse
+2. Foto layar aktif (capture running programs)
+3. Dokumentasi network connections
+4. RAM acquisition menggunakan FTK Imager:
+   - Hubungkan USB storage (write-blocked)
+   - Jalankan FTK Imager portable
+   - Capture Memory -> RAM.mem
+   - Calculate hash
+5. Dokumentasi running processes (opsional)
+6. Pull power plug (JANGAN shutdown normal)
+```
+
+**❌ YANG TIDAK BOLEH DILAKUKAN:**
+- Shutdown melalui menu Windows
+- Close program yang sedang berjalan
+- Browse file system
+- Mount/unmount drives
+
+---
+
+### FASE 3: PERANGKAT MATI (POWERED OFF)
+
+**4.4 Jika Sistem Mati:**
+```
+LANGKAH:
+1. JANGAN NYALAKAN perangkat
+2. Foto kondisi current state
+3. Disconnect dari jaringan (cabut kabel ethernet)
+4. Label semua kabel sebelum dicabut
+5. Dokumentasi peripheral devices
+6. Transport to forensic lab
+```
+
+---
+
+### FASE 4: AKUISISI DI LAB
+
+**4.5 Forensic Imaging:**
+```bash
+# Setup write-blocker
+1. Hubungkan source drive ke write-blocker
+2. Verifikasi write-block aktif:
+   $ hdparm -r /dev/sdb
+   Output harus: readonly = 1
+
+# Imaging menggunakan FTK Imager
+3. Launch FTK Imager
+4. File -> Create Disk Image
+5. Select: Physical Drive
+6. Choose source: /dev/sdb
+7. Add destination: E01 format
+8. Verify images after acquisition: YES
+9. Precalculate hash: SHA-256
+
+# Verification
+10. Hash original drive
+11. Hash image file
+12. Compare - MUST MATCH
+```
+
+**4.6 Hash Calculation:**
+```bash
+# Multiple algorithms untuk cross-verification
+md5sum FINANCE-WKS-07.E01 > hash_md5.txt
+sha1sum FINANCE-WKS-07.E01 > hash_sha1.txt
+sha256sum FINANCE-WKS-07.E01 > hash_sha256.txt
+
+# Save ke evidence folder
+cat hash_*.txt > HASH_MANIFEST.txt
+```
+
+---
+
+### FASE 5: CHAIN OF CUSTODY
+
+**4.7 Pengisian Formulir:**
+```
+INFORMASI WAJIB:
+✓ Case number
+✓ Evidence ID
+✓ Date/time seized
+✓ Location seized
+✓ Description of item
+✓ Serial number
+✓ Condition
+✓ Seized by (name + signature)
+✓ Witness (name + signature)
+```
+
+**4.8 Transfer Evidence:**
+
+Setiap perpindahan evidence HARUS dicatat:
+- Tanggal & waktu
+- Released by (tanda tangan)
+- Received by (tanda tangan)
+- Purpose transfer
+- Condition check
+
+---
+
+### FASE 6: STORAGE
+
+**4.9 Penyimpanan Evidence:**
+```
+REQUIREMENTS:
+✓ Evidence locker (locked, access-controlled)
+✓ Climate controlled (suhu 18-24°C, RH 40-60%)
+✓ Dalam evidence bags tersegel
+✓ Tamper-evident seals
+✓ Access log (siapa, kapan, untuk apa)
+```
+
+**4.10 Digital Evidence Storage:**
+```
+BACKUP STRATEGY:
+- Primary image: Forensic workstation (air-gapped)
+- Backup 1: External HDD (encrypted, locked safe)
+- Backup 2: Network storage (isolated VLAN)
+
+VERIFICATION SCHEDULE:
+- Setiap 30 hari: Hash verification
+- Setiap 90 hari: Physical condition check
+```
+
+---
+
+## 5. CHECKLIST PENYITAAN
+```
+PRE-SEIZURE:
+[ ] Coordinate dengan legal/management
+[ ] Prepare equipment & tools
+[ ] Print chain of custody forms
+[ ] Charge camera & flashlight
+[ ] Bring evidence bags & labels
+
+ON-SITE:
+[ ] Document scene (photos, notes)
+[ ] Assess device power state
+[ ] RAM acquisition (if powered on)
+[ ] Label all cables & connections
+[ ] Disconnect network
+[ ] Secure peripheral devices
+[ ] Seal evidence bags
+[ ] Complete chain of custody form
+[ ] Witness signature obtained
+
+POST-SEIZURE:
+[ ] Transport to forensic lab
+[ ] Store in evidence locker
+[ ] Forensic imaging with write-blocker
+[ ] Hash calculation & verification
+[ ] Update chain of custody
+[ ] Begin analysis
+
+ONGOING:
+[ ] Maintain chain of custody log
+[ ] Regular hash verification
+[ ] Access log monitoring
+[ ] Report any anomalies
+```
+
+---
+
+## 6. KESALAHAN UMUM YANG HARUS DIHINDARI
+
+| ❌ JANGAN | ✅ LAKUKAN |
+|-----------|------------|
+| Shutdown sistem normal | Pull power plug |
+| Click/browse files | Hands off approach |
+| Mount drives tanpa write-blocker | Always use write-blocker |
+| Skip dokumentasi foto | Foto SEBELUM sentuh apapun |
+| Lupa hash verification | Triple-check hashes |
+| Chain of custody tidak lengkap | Lengkapi setiap transfer |
+
+---
+
+## 7. KONTAK DARURAT
+
+**Tim Forensik:**
+- Lead Analyst: Muhammad Rizky Dermawan - 0895 6170 466 79
+- First Responder: Dwiyandra Raysha - 0813 8928 3829 2333
+
+**Vendor Support:**
+- FTK Support: support@accessdata.com
+- Tableau Support: support@guidancesoftware.com
+
+---
+
+**Dokumen ini bersifat RAHASIA dan hanya untuk internal use**
+
+_Last Updated: 2025-11-01_  
+_Next Review: 2026-11-01_

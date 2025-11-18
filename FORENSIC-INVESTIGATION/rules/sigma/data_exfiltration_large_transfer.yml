@@ -1,0 +1,67 @@
+title: Large Outbound Data Transfer to Foreign IP
+id: c5d6e7f8-a9b0-49c1-bd2e-3f4a5b6c7d8e
+status: experimental
+description: |
+  Deteksi transfer data besar (> 100 MB) ke IP eksternal di luar
+  jaringan perusahaan. Potensi data exfiltration atau C2 communication.
+author: Tim Forensik Kelompok 6
+date: 2025-11-15
+modified: 2025-11-15
+tags:
+    - attack.exfiltration
+    - attack.t1041
+    - attack.command_and_control
+    - attack.t1071
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 5156  # Windows Filtering Platform connection
+        Direction: Outbound
+        Protocol: TCP
+    filter_size:
+        # Filter untuk transfer > 100 MB (dalam bytes)
+        # Note: Tidak semua log Windows tracking size, ini conceptual
+        BytesSent|gt: 100000000  
+    filter_destination:
+        # Exclude internal networks
+        DestAddress|startswith:
+            - '192.168.'
+            - '10.'
+            - '172.16.'
+            - '172.17.'
+            - '172.18.'
+            - '172.19.'
+            - '172.20.'
+            - '172.21.'
+            - '172.22.'
+            - '172.23.'
+            - '172.24.'
+            - '172.25.'
+            - '172.26.'
+            - '172.27.'
+            - '172.28.'
+            - '172.29.'
+            - '172.30.'
+            - '172.31.'
+    filter_legitimate:
+        # Exclude known legitimate cloud services
+        DestAddress|endswith:
+            - '.microsoft.com'
+            - '.google.com'
+            - '.amazonaws.com'
+            - '.azure.com'
+    condition: selection and not filter_destination and not filter_legitimate
+falsepositives:
+    - Cloud backup solutions
+    - Software updates and patches
+    - Legitimate file uploads to cloud storage
+    - Video conferencing high-quality streams
+level: medium
+fields:
+    - Application
+    - DestAddress
+    - DestPort
+    - SourceAddress
+    - BytesSent

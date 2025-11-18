@@ -1,0 +1,62 @@
+title: Off-Hours Login from Foreign IP Address
+id: b4c5d6e7-f8a9-48b0-ac1d-2e3f4a5b6c7d
+status: stable
+description: |
+  Mendeteksi aktivitas login di luar jam kerja normal dari IP address
+  yang berada di luar geografis perusahaan. Indikasi credential compromise
+  atau unauthorized access.
+author: Tim Forensik Kelompok 6
+date: 2025-11-15
+modified: 2025-11-15
+tags:
+    - attack.initial_access
+    - attack.t1078
+    - attack.credential_access
+    - attack.t1110
+logsource:
+    product: windows
+    service: security
+detection:
+    selection_event:
+        EventID: 4624
+        LogonType: 3  # Network logon
+    selection_time:
+        TimeCreated|startswith:
+            - '*T00:'  # Midnight - 1 AM
+            - '*T01:'  # 1 AM - 2 AM
+            - '*T02:'  # 2 AM - 3 AM
+            - '*T03:'  # 3 AM - 4 AM
+            - '*T04:'  # 4 AM - 5 AM
+            - '*T05:'  # 5 AM - 6 AM
+    filter_local_ip:
+        IpAddress|startswith:
+            - '192.168.'
+            - '10.'
+            - '172.16.'
+            - '172.17.'
+            - '172.18.'
+            - '172.19.'
+            - '172.20.'
+            - '172.21.'
+            - '172.22.'
+            - '172.23.'
+            - '172.24.'
+            - '172.25.'
+            - '172.26.'
+            - '172.27.'
+            - '172.28.'
+            - '172.29.'
+            - '172.30.'
+            - '172.31.'
+    condition: selection_event and selection_time and not filter_local_ip
+falsepositives:
+    - Legitimate remote workers in different timezone
+    - VPN connections from traveling employees
+    - Scheduled maintenance tasks
+    - Backup jobs
+level: high
+fields:
+    - TargetUserName
+    - IpAddress
+    - WorkstationName
+    - TimeCreated

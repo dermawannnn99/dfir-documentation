@@ -1,0 +1,42 @@
+title: Suspicious Service Installation with Masquerading Name
+id: a3b2c1d4-e5f6-47b8-9c0d-1e2f3a4b5c6d
+status: stable
+description: |
+  Deteksi instalasi Windows service mencurigakan yang menyamar sebagai 
+  service Windows legitimate. Sering digunakan untuk persistence mechanism.
+author: Tim Forensik Kelompok 6
+date: 2025-11-15
+modified: 2025-11-15
+tags:
+    - attack.persistence
+    - attack.t1543.003
+    - attack.privilege_escalation
+    - attack.t1543
+logsource:
+    product: windows
+    service: system
+detection:
+    selection:
+        EventID: 7045
+        ServiceName|contains:
+            - 'WindowsSecurity'
+            - 'MicrosoftUpdate'
+            - 'SystemDefender'
+            - 'WindowsDefender'
+            - 'SecurityUpdate'
+            - 'svchost'
+    filter_legitimate:
+        ImagePath|startswith:
+            - 'C:\Windows\System32\'
+            - 'C:\Program Files\Windows Defender\'
+            - 'C:\Program Files (x86)\Windows Defender\'
+    condition: selection and not filter_legitimate
+falsepositives:
+    - Legitimate third-party security software installation
+    - Custom enterprise security tools
+level: high
+fields:
+    - ServiceName
+    - ImagePath
+    - ServiceType
+    - StartType
